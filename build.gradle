@@ -20,3 +20,7 @@ allprojects {
         google()
     }
 }
+
+ext{
+    supportLibVersion = "26.1.0"
+}
