@@ -33,29 +33,28 @@ android {
 
     flavorDimensions "tier"
 
-    productFlavors{
-        free{
+    productFlavors {
+        free {
             applicationId "com.udacity.gradle.builditbigger.free"
-            versionName "1.0-free"
+            versionNameSuffix ' free'
         }
-        paid{
+        paid {
             applicationId "com.udacity.gradle.builditbigger.paid"
+            versionNameSuffix ' paid'
         }
     }
 }
 
 dependencies {
-    implementation fileTree( dir: 'libs',include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     endpointsServer project(path: ':backend', configuration: 'endpoints')
-    implementation project(':joker')
     implementation project(':jokedisplayer')
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
     implementation "com.android.support:support-v4:$rootProject.ext.supportLibVersion"
-    implementation "com.google.android.gms:play-services-ads:$rootProject.ext.playServicesVersion"
+    freeImplementation "com.google.android.gms:play-services-ads:$rootProject.ext.playServicesVersion"
     implementation "com.google.api-client:google-api-client:$rootProject.ext.googleApiVersion"
     implementation "com.google.http-client:google-http-client-android:$rootProject.ext.googleApiVersion"
     implementation "com.google.code.findbugs:jsr305:$rootProject.ext.findBugsVersion"
-
     androidTestImplementation "com.android.support.test:runner:$rootProject.ext.testVersion"
     androidTestImplementation "com.android.support.test:rules:$rootProject.ext.testVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoIntentsVersion"
