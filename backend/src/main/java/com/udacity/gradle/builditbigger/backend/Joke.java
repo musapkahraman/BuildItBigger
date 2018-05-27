@@ -7,7 +7,7 @@ public class Joke {
 
     private String joke;
 
-    public String getJoke() {
+    public String getJokeString() {
         return joke;
     }
 
