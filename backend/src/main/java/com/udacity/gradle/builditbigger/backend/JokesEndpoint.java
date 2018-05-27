@@ -16,15 +16,10 @@ import com.google.api.server.spi.config.ApiNamespace;
         )
 )
 public class JokesEndpoint {
-
-    /**
-     * A simple endpoint method that takes a name and says Hi back
-     */
     @ApiMethod(name = "getJoke")
-    public Joke sayHi() {
+    public Joke getJoke() {
         Joke joke = new Joke();
         joke.setJoke(Jokes.getJoke());
-
         return joke;
     }
 }
