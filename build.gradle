@@ -21,6 +21,13 @@ allprojects {
     }
 }
 
-ext{
-    supportLibVersion = "26.1.0"
+ext {
+    supportLibVersion = '26.1.0'
+    playServicesVersion = '15.0.1'
+    googleApiVersion = '1.23.0'
+    findBugsVersion = '3.0.1'
+    testVersion = '1.0.1'
+    espressoIntentsVersion = '3.0.1'
+    espressoCoreVersion = '2.2.2'
+    jUnitVersion = '4.12'
 }
