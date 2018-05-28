@@ -5,4 +5,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="TextBoxes">
+        <item name="android:textSize">@dimen/boxes_text_size</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_space</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
 </resources>

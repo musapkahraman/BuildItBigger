@@ -3,14 +3,19 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.jokedisplayer.JokeDisplayActivity;
 import com.example.jokedisplayer.JokeUtils;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String LOADING_KEY = "loading";
+    ProgressBar mLoadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +23,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AsyncTaskHelper.setActivity(this);
+        mLoadingIndicator = findViewById(R.id.pb_loading_joke);
+
+        if (savedInstanceState != null) {
+            mLoadingIndicator.setVisibility(savedInstanceState.getInt(LOADING_KEY));
+        } else {
+            mLoadingIndicator.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(LOADING_KEY, mLoadingIndicator.getVisibility());
     }
 
     @Override
@@ -43,13 +61,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new EndpointsAsyncTask().execute();
+        if (mLoadingIndicator.getVisibility() != View.VISIBLE) {
+            mLoadingIndicator.setVisibility(View.VISIBLE);
+            Log.v("MainActivity", "Executing async task.");
+            new EndpointsAsyncTask().execute();
+        }
     }
 
     public void startJokeIntent(String result) {
+        mLoadingIndicator.setVisibility(View.GONE);
         Intent intent = new Intent(this, JokeDisplayActivity.class);
         intent.putExtra(JokeUtils.KEY_JOKE, result);
         startActivity(intent);
     }
-
 }
