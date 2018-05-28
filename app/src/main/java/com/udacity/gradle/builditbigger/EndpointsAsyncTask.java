@@ -1,11 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.example.jokedisplayer.JokeDisplayActivity;
-import com.example.jokedisplayer.JokeUtils;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -14,13 +10,13 @@ import com.udacity.gradle.builditbigger.backend.jokeApi.JokeApi;
 
 import java.io.IOException;
 
-class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
-    private static JokeApi mJokeApiService = null;
-    private Context mContext;
+class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+
+    private static JokeApi sJokeApiService = null;
 
     @Override
-    protected String doInBackground(Context... params) {
-        if (mJokeApiService == null) {  // Only do this once
+    protected String doInBackground(Void... voids) {
+        if (sJokeApiService == null) {  // Only do this once
             JokeApi.Builder builder = new JokeApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
@@ -35,13 +31,11 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
                     });
             // end options for devappserver
 
-            mJokeApiService = builder.build();
+            sJokeApiService = builder.build();
         }
 
-        mContext = params[0];
-
         try {
-            return mJokeApiService.getJoke().execute().getJoke();
+            return sJokeApiService.getJoke().execute().getJoke();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -49,8 +43,7 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Intent intent = new Intent(mContext, JokeDisplayActivity.class);
-        intent.putExtra(JokeUtils.KEY_JOKE, result);
-        mContext.startActivity(intent);
+        AsyncTaskHelper.startJokeIntent(result);
     }
+
 }
