@@ -3,7 +3,6 @@ package com.udacity.gradle.builditbigger;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view) {
         if (mLoadingIndicator.getVisibility() != View.VISIBLE) {
             mLoadingIndicator.setVisibility(View.VISIBLE);
-            Log.v("MainActivity", "Executing async task.");
             new EndpointsAsyncTask().execute();
         }
     }

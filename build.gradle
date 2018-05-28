@@ -31,3 +31,46 @@ ext {
     espressoCoreVersion = '2.2.2'
     jUnitVersion = '4.12'
 }
+
+task serverTestStart{
+    group = 'server'
+    dependsOn ':backend:appengineStart'
+
+    doLast {
+        println "Server is started."
+    }
+}
+
+task serverTest{
+    group = 'server'
+    dependsOn ':app:connectedAndroidTest'
+    mustRunAfter serverTestStart
+
+    doLast {
+        println "Tests are finished."
+    }
+}
+
+task serverTestStop{
+    group = 'server'
+    dependsOn ':backend:appengineStop'
+    mustRunAfter serverTest
+
+    doLast {
+        println "Server is stopped."
+    }
+}
+
+task executeServerTests{
+    group = 'server'
+    description = 'This task:\n' +
+            '1. Launches the GCE local development server\n' +
+            '2. Runs all tests\n' +
+            '3. Shuts the server down again'
+
+    dependsOn serverTestStart,serverTest,serverTestStop
+
+    doLast {
+        println "Server testing is all done."
+    }
+}
