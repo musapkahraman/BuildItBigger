@@ -18,6 +18,7 @@ import static android.support.test.espresso.intent.matcher.ComponentNameMatchers
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
 
 @LargeTest
@@ -26,6 +27,13 @@ public class JokeStringTest {
 
     @Rule
     public IntentsTestRule<MainActivity> mActivityTestRule = new IntentsTestRule<>(MainActivity.class);
+
+    @Test
+    public void clickButton_CheckForSuccessfulConnection() {
+        onView(withId(R.id.button_show_joke)).perform(click());
+        intended(hasComponent(hasClassName(JokeDisplayActivity.class.getName())));
+        onView(withId(R.id.tv_joke)).check(matches(not(withText(containsString("failed to connect")))));
+    }
 
     @Test
     public void clickButton_CheckJokeTextForNonEmptyString() {
