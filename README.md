@@ -2,6 +2,8 @@ Used Gradle to build a joke-telling app that has both a free and paid version. T
 
 * Part of the Android Developer Nanodegree Program
 
+# Project
+
 ## Gradle for Android
 
 In this project, you will create an app with multiple flavors that uses
@@ -149,7 +151,7 @@ To tie it all together, create a Gradle task that:
 2. Runs all tests
 3. Shuts the server down again
 
-# Rubric
+## Rubric
 
 ### Required Components
 
